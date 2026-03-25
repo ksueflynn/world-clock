@@ -3,7 +3,7 @@
 function updateTime() {
   //London
   let londonElement = document.querySelector("#london");
-  if (londonElement.length) {
+  if (londonElement) {
     let londonDateElement = londonElement.querySelector(".date");
     let londonTimeElement = londonElement.querySelector(".time");
     let londonTime = moment().tz("Europe/London");
@@ -13,15 +13,16 @@ function updateTime() {
       "h:mm:ss [<small>]A[</small>]",
     );
   }
-  //Seattle
-  let seattleElement = document.querySelector("#seattle");
-  if (seattleElement.length) {
-    let seattleDateElement = seattleElement.querySelector(".date");
-    let seattleTimeElement = seattleElement.querySelector(".time");
-    let seattleTime = moment().tz("America/Los_Angeles");
 
-    seattleDateElement.innerHTML = seattleTime.format("MMMM Do, YYYY");
-    seattleTimeElement.innerHTML = seattleTime.format(
+  //New York
+  let newYorkElement = document.querySelector("#new-york");
+  if (newYorkElement) {
+    let newYorkDateElement = newYorkElement.querySelector(".date");
+    let newYorkTimeElement = newYorkElement.querySelector(".time");
+    let newYorkTime = moment().tz("America/New_York");
+
+    newYorkDateElement.innerHTML = newYorkTime.format("MMMM Do, YYYY");
+    newYorkTimeElement.innerHTML = newYorkTime.format(
       "h:mm:ss [<small>]A[</small>]",
     );
   }
@@ -29,14 +30,17 @@ function updateTime() {
 
 function updateCity(event) {
   let cityTimeZone = event.target.value;
-  let cityName = cityTimeZone.replace("_", "").split("/")[1];
+  if (cityTimeZone === "current") {
+    cityTimeZone = moment.tz.guess();
+  }
+  let cityName = cityTimeZone.replace("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
   citiesElement.innerHTML = `
   
     <div class="city">
           <div>
-            <h2>${cityTimeZone}</h2>
+            <h2>${cityName}</h2>
             <div class="date">${cityTime.format("MMMM Do, YYYY")}</div>
           </div>
           <div class="time">${cityTime.format("h:mm:ss [<small>]A[</small>]")}</div>
