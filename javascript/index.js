@@ -26,6 +26,19 @@ function updateTime() {
       "h:mm:ss [<small>]A[</small>]",
     );
   }
+
+  //Cape Town
+  let casablancaElement = document.querySelector("#casablanca");
+  if (casablancaElement) {
+    let casablancaDateElement = casablancaElement.querySelector(".date");
+    let casablancaTimeElement = casablancaElement.querySelector(".time");
+    let casablancaTime = moment().tz("Africa/Casablanca");
+
+    casablancaDateElement.innerHTML = casablancaTime.format("MMMM Do, YYYY");
+    casablancaTimeElement.innerHTML = casablancaTime.format(
+      "h:mm:ss [<small>]A[</small>]",
+    );
+  }
 }
 
 function updateCity(event) {
@@ -36,6 +49,7 @@ function updateCity(event) {
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
+
   citiesElement.innerHTML = `
   
     <div class="city">
